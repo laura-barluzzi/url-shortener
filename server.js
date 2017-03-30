@@ -1,4 +1,5 @@
 var express = require('express');
+var hash = require('string-hash');
 var app = express();
 
 function checkValidity(url) {
@@ -12,14 +13,13 @@ app.get('/new/\*', function (req, res) {
     var urlIsValid = checkValidity(paramUrl);
     
     if (urlIsValid) {
-        // do rest
-        res.send(urlIsValid);
+        var strHash = hash(paramUrl).toString();
+        res.send(strHash);
 
     } else {
         var error = { "error" : "Invalid URL" };
         res.send(JSON.stringify(error));
     }
-
 });
 
 app.listen(8080, function () {
