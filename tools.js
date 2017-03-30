@@ -3,10 +3,7 @@ var urls = {};
 module.exports = {
     
     validateUrl: function (url) {
-        var hasDotCom = url.substr(url.length - 4, 4) === '.com';
-        var isHttp = url.substr(0, 11) === 'http://www.' && hasDotCom;
-        var isHttps = url.substr(0, 12) === 'https://www.' && hasDotCom;
-        return (isHttp || isHttps) ? true : false;
+        return !!url.match(new RegExp("^http(s)?://(.)*\.com$"));
     },
 
     shortenUrl: function (protocol, host, hash) {
