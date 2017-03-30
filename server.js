@@ -8,9 +8,18 @@ function checkValidity(url) {
     return (isHttp || isHttps) ? true : false;
 }
 app.get('/new/\*', function (req, res) {
-    var paramUrl = req.params["0"]; // type string
+    var paramUrl = req.params["0"];
     var urlIsValid = checkValidity(paramUrl);
-    res.send(urlIsValid);
+    
+    if (urlIsValid) {
+        // do rest
+        res.send(urlIsValid);
+
+    } else {
+        var error = { "error" : "Invalid URL" };
+        res.send(JSON.stringify(error));
+    }
+
 });
 
 app.listen(8080, function () {
