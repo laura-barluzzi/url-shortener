@@ -14,7 +14,11 @@ app.get('/new/\*', function (req, res) {
     
     if (urlIsValid) {
         var strHash = hash(paramUrl).toString();
-        res.send(strHash);
+        var shortUrl = req.protocol + "://" + req.get('host') + "/" + strHash;
+        var urls = { "original-url" :  paramUrl, 
+                     "shorter-url" : shortUrl
+                   }
+        res.send(JSON.stringify(urls));
 
     } else {
         var error = { "error" : "Invalid URL" };
