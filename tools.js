@@ -1,4 +1,3 @@
-var hash = require('string-hash');
 var urls = {};
 
 module.exports = {
@@ -10,17 +9,17 @@ module.exports = {
         return (isHttp || isHttps) ? true : false;
     },
 
-    createShortUrl: function (protocol, host, strToHash) {
-        return protocol + "://" + host + "/" + hash(strToHash).toString();
+    shortenUrl: function (protocol, host, hash) {
+        return protocol + "://" + host + "/" + hash;
     },
 
-    storeUrls: function (original, shortUrl) {
-        urls[shortUrl] = original;
+    storeUrls: function (original, hash) {
+        urls[hash] = original;
         console.log(urls);
     },
 
-    getLongUrl: function (shortUrl) {
-        return urls[shortUrl];
+    getOriginalUrl: function (hash) {
+        return urls[hash];
     },
 
     getResult: function (original, shortUrl) {
